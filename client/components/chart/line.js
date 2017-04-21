@@ -2,10 +2,10 @@ import * as d3 from 'd3';
 
 export default function drawLineChart(container, indicator) {
   const margin = {
-    top: 20,
-    right: 20,
-    bottom: 30,
-    left: 50,
+    top: 0,
+    right: 25,
+    bottom: 50,
+    left: 0,
   };
 
   const width = container.offsetWidth;
@@ -17,10 +17,10 @@ export default function drawLineChart(container, indicator) {
     .attr('transform', `translate(${margin.left}, ${margin.right})`);
 
   const x = d3.scaleTime()
-      .rangeRound([0, width]);
+      .rangeRound([0, width - margin.left - margin.right]);
 
   const y = d3.scaleLinear()
-    .rangeRound([height, 0]);
+    .rangeRound([height - margin.top - margin.bottom, 0]);
 
   const line = d3.line()
     .x(d => x(d.date))
@@ -42,6 +42,10 @@ export default function drawLineChart(container, indicator) {
     x.domain(d3.extent(data, d => d.date));
     y.domain(d3.extent(data, d => d.value));
 
+    const yAxis = d3.axisRight(y)
+      .tickSizeInner(width - margin.left - margin.right)
+      .tickSizeOuter(0);
+
     g.append('g')
         .attr('transform', `translate(0, ${height})`)
         .call(d3.axisBottom(x))
@@ -49,21 +53,15 @@ export default function drawLineChart(container, indicator) {
         .remove();
 
     g.append('g')
-        .call(d3.axisLeft(y))
-      .append('text')
-        .attr('fill', '#000')
-        .attr('transform', 'rotate(-90)')
-        .attr('y', 6)
-        .attr('dy', '0.71em')
-        .attr('text-anchor', 'end');
+        .call(yAxis);
 
     g.append('path')
         .datum(data)
         .attr('fill', 'none')
-        .attr('stroke', 'steelblue')
+        .attr('stroke', '#A5526A')
         .attr('stroke-linejoin', 'round')
         .attr('stroke-linecap', 'round')
-        .attr('stroke-width', 1.5)
+        .attr('stroke-width', 2.5)
         .attr('d', line);
   });
 }
