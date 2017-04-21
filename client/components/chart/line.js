@@ -5,26 +5,19 @@ export default function drawLineChart(container, indicator) {
     top: 0,
     right: 25,
     bottom: 50,
-    left: 0,
+    left: 5,
   };
 
   const width = container.offsetWidth;
   const height = (width * 9) / 16;
 
-  const svg = d3.select(container).append('svg');
+  const svg = d3.select(container)
+    .append('svg')
+    .attr('width', width)
+    .attr('height', height);
 
   const g = svg.append('g')
     .attr('transform', `translate(${margin.left}, ${margin.right})`);
-
-  const x = d3.scaleTime()
-      .rangeRound([0, width - margin.left - margin.right]);
-
-  const y = d3.scaleLinear()
-    .rangeRound([height - margin.top - margin.bottom, 0]);
-
-  const line = d3.line()
-    .x(d => x(d.date))
-    .y(d => y(d.value));
 
   d3.tsv(`./data/${indicator}.tsv`, (error, data) => {
     if (error) throw error;
@@ -39,8 +32,32 @@ export default function drawLineChart(container, indicator) {
       d.value = +d['Last Price'];
     });
 
-    x.domain(d3.extent(data, d => d.date));
-    y.domain(d3.extent(data, d => d.value));
+    const y = d3.scaleLinear()
+      .domain(d3.extent(data, d => d.value))
+      .rangeRound([height - margin.top - margin.bottom, 0]);
+
+    const yAxis = d3.axisRight(y)
+      .tickSizeInner(width - margin.left - margin.right)
+      .tickSizeOuter(0);
+
+    const yLabel = g.append('g')
+        .attr('class', 'yAxis')
+        .call(yAxis);
+
+    yLabel.select('.domain')
+        .remove();
+
+    const yLabelOffset = d3.select(yLabel.node()).select('text').node().getBBox().width;
+
+    yLabel.selectAll('text')
+      .attr('x', width - margin.left - margin.right - yLabelOffset + 10);
+
+    yLabel.selectAll('line')
+      .attr('x2', width - margin.left - margin.right - yLabelOffset + 5);
+
+    const x = d3.scaleTime()
+      .domain(d3.extent(data, d => d.date))
+      .rangeRound([0, width - margin.left - margin.right - yLabelOffset]);
 
     const xAxis = d3.axisBottom(x)
       .tickSizeOuter(5)
@@ -51,20 +68,16 @@ export default function drawLineChart(container, indicator) {
         return d3.timeFormat('%b')(d);
       });
 
-    const yAxis = d3.axisRight(y)
-      .tickSizeInner(width - margin.left - margin.right)
-      .tickSizeOuter(0);
-
     g.append('g')
+        .attr('class', 'xAxis')
         .attr('transform', `translate(0, ${height - margin.top - margin.bottom})`)
         .call(xAxis)
       .select('.domain')
         .remove();
 
-    g.append('g')
-        .call(yAxis)
-      .select('.domain')
-        .remove();
+    const line = d3.line()
+      .x(d => x(d.date))
+      .y(d => y(d.value));
 
     g.append('path')
         .datum(data)
