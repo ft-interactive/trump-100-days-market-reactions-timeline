@@ -8,8 +8,11 @@ export default async () => {
   const flags = await getFlags();
   const onwardJourney = await getOnwardJourney();
 
-  const events = await bertha.get('1GGUiKq2qc4DkedcYNA4gqOoDar06jlTfaORH3ASXXPo', ['events']).then((data) => {
-    return data.events.sort((a, b) => new Date(a.date) - new Date(b.date));
+  const data = await bertha.get('1GGUiKq2qc4DkedcYNA4gqOoDar06jlTfaORH3ASXXPo', ['events', 'top|object']).then((data) => {
+    return {
+      events: data.events.sort((a, b) => new Date(a.date) - new Date(b.date)),
+      text: data.top,
+    };
   }).catch(e => console.log('Error fetching from Bertha', e));
   /*
   An experimental demo that gets content from the API
@@ -37,6 +40,6 @@ export default async () => {
     ...d,
     flags,
     onwardJourney,
-    events,
+    data,
   };
 };

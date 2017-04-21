@@ -1,8 +1,10 @@
 {% extends "layout.html" %}
 {% block article_body %}
 
+{{ data.text.introParagraph | md }}
+
 <div class="o-grid-container">
-{% for event in events %}
+{% for event in data.events %}
 
 {% if event.marketindicator %}
   {% set colwidth = 6 %}
