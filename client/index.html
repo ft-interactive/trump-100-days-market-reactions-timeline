@@ -7,9 +7,9 @@
 {% for event in data.events %}
 
 {% if event.marketindicator %}
-  {% set colwidth = 6 %}
+  {% set colwidth = "S6 12" %}
 {% else %}
-  {% set colwidth = 12 %}
+  {% set colwidth = "12" %}
 {% endif %}
 
 <div class="card o-grid-row">
@@ -20,7 +20,7 @@
   </div>
 
   {% if event.marketindicator %}
-  <div class="chart" data-indicator={{ event.marketindicator }} data-o-grid-colspan="6">
+  <div class="chart" data-indicator={{ event.marketindicator }} data-o-grid-colspan="S6 12">
     <div class="chart__title">{{ event.charttitle }}</div>
     <div class="chart__subtitle">{{ event.chartsubtitle }}</div>
     <div class="chart_container"></div>
