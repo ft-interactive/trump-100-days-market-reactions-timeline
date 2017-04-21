@@ -36,7 +36,7 @@ export default function drawLineChart(container, indicator) {
 
     data.forEach((d) => {
       d.date = parseTime(d.Date);
-      d.value = +d.value;
+      d.value = +d['Last Price'];
     });
 
     x.domain(d3.extent(data, d => d.date));
