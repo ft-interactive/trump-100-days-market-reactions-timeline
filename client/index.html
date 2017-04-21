@@ -3,6 +3,17 @@
 
 {{ data.text.introParagraph | md }}
 
+<div id="timeline-wrapper" class="o-grid-container">
+  <div id="timeline-container" class="o-grid-row">
+    <div id="timeline">
+      {% for event in data.events %}
+        <div class="timeline__circle" style="left: {{ (event.numDay + 1)}}%"></div>
+      {% endfor %}
+      <div id="timeline__line"></div>
+    </div>
+  </div>
+</div>
+
 <div class="o-grid-container">
 {% for event in data.events %}
 
