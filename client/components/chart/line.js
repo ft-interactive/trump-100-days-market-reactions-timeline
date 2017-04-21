@@ -42,13 +42,17 @@ export default function drawLineChart(container, indicator) {
     x.domain(d3.extent(data, d => d.date));
     y.domain(d3.extent(data, d => d.value));
 
+    const xAxis = d3.axisBottom(x)
+      .tickSizeOuter(5)
+      .tickFormat(d => d3.timeFormat('%b ’%y')(d));
+
     const yAxis = d3.axisRight(y)
       .tickSizeInner(width - margin.left - margin.right)
       .tickSizeOuter(0);
 
     g.append('g')
-        .attr('transform', `translate(0, ${height})`)
-        .call(d3.axisBottom(x))
+        .attr('transform', `translate(0, ${height - margin.top - margin.bottom})`)
+        .call(xAxis)
       .select('.domain')
         .remove();
 
