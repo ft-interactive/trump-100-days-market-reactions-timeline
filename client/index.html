@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+{% block article_body %}
+
+<div class="o-grid-container">
+{% for event in events %}
+<div class="card o-grid-row">
+  <div class="card__description" data-o-grid-colspan="6">
+    <div class="card__date">{{ event.date }}</div>
+    <h2 class="card__headline">{{ event.headline }}</h2>
+    <div class="card__text">{{ event.text | md }}</div>
+  </div>
+
+  {% if event.marketindicator %}
+  <div class="chart" data-indicator={{ event.marketindicator }} data-o-grid-colspan="6">
+    <div class="chart__title">{{ event.charttitle }}</div>
+    <div class="chart__subtitle">{{ event.chartsubtitle }}</div>
+    <div class="chart_container"></div>
+  </div>
+  {% endif %}
+</div>
+{% endfor %}
+</div>
+
+{% endblock %}
