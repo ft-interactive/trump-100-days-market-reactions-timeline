@@ -44,7 +44,12 @@ export default function drawLineChart(container, indicator) {
 
     const xAxis = d3.axisBottom(x)
       .tickSizeOuter(5)
-      .tickFormat(d => d3.timeFormat('%b ’%y')(d));
+      .tickFormat((d, i) => {
+        if (i === 0 || i === 4) {
+          return d3.timeFormat('%b ’%y')(d);
+        }
+        return d3.timeFormat('%b')(d);
+      });
 
     const yAxis = d3.axisRight(y)
       .tickSizeInner(width - margin.left - margin.right)
@@ -57,7 +62,9 @@ export default function drawLineChart(container, indicator) {
         .remove();
 
     g.append('g')
-        .call(yAxis);
+        .call(yAxis)
+      .select('.domain')
+        .remove();
 
     g.append('path')
         .datum(data)
