@@ -130,3 +130,19 @@ $share-button-size: 38px;
 .article-head .o-share--vertical .o-share__action {
   box-sizing: content-box !important;
 }
+
+/* CARDS */
+
+.card__date {
+  font-size: 0.85em;
+  margin-bottom: 16px;
+}
+
+h2.card__headline {
+  line-height: 1em;
+}
+
+.card__text p {
+  font-family: MetricWeb, sans-serif;
+  line-height: 1.3em;
+}
