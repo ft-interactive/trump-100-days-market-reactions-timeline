@@ -131,11 +131,12 @@ $share-button-size: 38px;
   box-sizing: content-box !important;
 }
 
-/* CARDS */
+/* CARD TEXT */
 
 .card__date {
   font-size: 0.85em;
   margin-bottom: 16px;
+  letter-spacing: 1.5px;
 }
 
 h2.card__headline {
@@ -146,3 +147,21 @@ h2.card__headline {
   font-family: MetricWeb, sans-serif;
   line-height: 1.3em;
 }
+
+/* CHARTS */
+
+.chart__title {
+  color:#936971;
+  margin-top:34px;
+  font-size:0.9em;
+}
+
+.chart__subtitle {
+  color:#74736c;
+  font-size: 0.8em;
+}
+
+.tick {
+  font-family: MetricWeb, sans-serif;
+}
+
