@@ -94,6 +94,7 @@
     "bertha-client": "^2.0.0",
     "d3": "^4.8.0",
     "lodash.debounce": "^4.0.8",
+    "moment": "^2.18.1",
     "react": "^15.5.4",
     "react-dom": "^15.5.4"
   }

@@ -14,7 +14,7 @@
 
 <div class="card o-grid-row">
   <div class="card__description" data-o-grid-colspan={{ colwidth }}>
-    <div class="card__date">{{ event.date }}</div>
+    <div class="card__date">Day {{ event.numDay + 1 }} | {{ event.date }}</div>
     <h2 class="card__headline">{{ event.headline }}</h2>
     <div class="card__text">{{ event.text | md }}</div>
   </div>
