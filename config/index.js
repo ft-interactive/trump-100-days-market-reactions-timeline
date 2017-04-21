@@ -1,4 +1,5 @@
 import * as bertha from 'bertha-client';
+import moment from 'moment';
 import article from './article';
 import getFlags from './flags';
 import getOnwardJourney from './onward-journey';
@@ -9,8 +10,13 @@ export default async () => {
   const onwardJourney = await getOnwardJourney();
 
   const data = await bertha.get('1GGUiKq2qc4DkedcYNA4gqOoDar06jlTfaORH3ASXXPo', ['events', 'top|object']).then((data) => {
+    const events = data.events.sort((a, b) => new Date(a.date) - new Date(b.date));
+    events.forEach((event) => {
+      event.numDay = moment(event.date).diff(moment([2017, 0, 20]), 'days');
+    });
+
     return {
-      events: data.events.sort((a, b) => new Date(a.date) - new Date(b.date)),
+      events,
       text: data.top,
     };
   }).catch(e => console.log('Error fetching from Bertha', e));
