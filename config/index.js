@@ -17,8 +17,6 @@ export default async () => {
       event.dateTimelineFormatted = d3TimeFormat.timeFormat('%b %d')(new Date(event.date));
     });
 
-    console.log(events);
-
     return {
       events,
       text: data.top,
@@ -51,5 +49,7 @@ export default async () => {
     flags,
     onwardJourney,
     data,
+    headline: data.text.headline,
+    summary: data.text.standfirst,
   };
 };
