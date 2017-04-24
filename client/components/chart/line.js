@@ -38,9 +38,11 @@ export default function drawLineChart(container, indicator, start, end) {
 
     const y = d3.scaleLinear()
       .domain(d3.extent(data, d => d.value))
-      .rangeRound([height - margin.top - margin.bottom, 0]);
+      .rangeRound([height - margin.top - margin.bottom, 0])
+      .nice(5);
 
     const yAxis = d3.axisRight(y)
+      .ticks(5)
       .tickSizeInner(width - margin.left - margin.right)
       .tickSizeOuter(0);
 
