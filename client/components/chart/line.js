@@ -1,6 +1,6 @@
 import * as d3 from 'd3';
 
-export default function drawLineChart(container, indicator, start, end) {
+export default function drawLineChart(container, indicator, start, end, yAxisHighlight) {
   const margin = {
     top: 0,
     right: 25,
@@ -66,8 +66,12 @@ export default function drawLineChart(container, indicator, start, end) {
       .rangeRound([0, width - margin.left - margin.right - yLabelOffset]);
 
     const xAxis = d3.axisBottom(x)
+      .ticks(5)
       .tickSizeOuter(5)
       .tickFormat((d, i) => {
+        if (indicator.indexOf('intraday') > -1) {
+          return d3.timeFormat('%H:%M')(d);
+        }
         if (i === 0 || i === 4) {
           return d3.timeFormat('%b ’%y')(d);
         }
@@ -80,6 +84,15 @@ export default function drawLineChart(container, indicator, start, end) {
         .call(xAxis)
       .select('.domain')
         .remove();
+
+    if (yAxisHighlight) {
+      g.append('line')
+        .attr('class', 'yAxisHighlight')
+        .attr('x1', 0)
+        .attr('x2', width - margin.left - margin.right - yLabelOffset + 5)
+        .attr('y1', y(yAxisHighlight))
+        .attr('y2', y(yAxisHighlight));
+    }
 
     const line = d3.line()
       .x(d => x(d.date))

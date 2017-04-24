@@ -11,9 +11,10 @@ function drawCharts() {
       const indicator = card.querySelector('.chart').dataset.indicator;
       const startdate = card.querySelector('.chart').dataset.start;
       const enddate = card.querySelector('.chart').dataset.end;
+      const yAxisHighlight = card.querySelector('.chart').dataset.yaxishighlight;
 
       container.innerHTML = '';
-      drawLineChart(container, indicator, startdate, enddate);
+      drawLineChart(container, indicator, startdate, enddate, yAxisHighlight);
     }
 
     const waypoint = new Waypoint({
