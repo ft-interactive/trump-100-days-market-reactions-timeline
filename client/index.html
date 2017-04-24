@@ -8,7 +8,7 @@
     <div id="timeline">
       <div class="timeline__circle timeline__circle__end" style="left: 0"></div>
       {% for event in data.events %}
-        <div class="timeline__circle {% if loop.index0 == 0 %} selected {% endif %}" style="left: {{ (event.numDay + 1)}}%">
+        <div class="timeline__circle {% if loop.index0 == 0 %} selected {% endif %}" style="left: {{ (event.numDay + 1)}}%" data-card-id={{ loop.index0 }}>
           <div class="timeline__circle__text">
             <div class="timeline__circle__text-date">{{ event.dateTimelineFormatted }}</div>
             <div>Day {{ event.numDay + 1 }}</div>
@@ -30,7 +30,7 @@
   {% set colwidth = "12" %}
 {% endif %}
 
-<div class="card o-grid-row">
+<div class="card o-grid-row {% if loop.index0 == 0 %} selected {% endif %}" data-card-id={{ loop.index0 }}>
   <div class="card__description" data-o-grid-colspan={{ colwidth }}>
     <div class="card__date">Day {{ event.numDay + 1 }} | {{ event.date }}</div>
     <h2 class="card__headline">{{ event.headline }}</h2>

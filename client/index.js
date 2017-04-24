@@ -2,14 +2,32 @@ import debounce from 'lodash.debounce';
 import drawLineChart from './components/chart/line';
 
 function drawCharts() {
-  const charts = document.querySelectorAll('.chart');
+  const cards = document.querySelectorAll('.card');
+  const timelineDots = document.querySelectorAll('.timeline__circle');
 
-  Array.from(charts).forEach((chart) => {
-    const container = chart.querySelector('.chart_container');
-    const indicator = chart.dataset.indicator;
+  Array.from(cards).forEach((card) => {
+    const container = card.querySelector('.chart_container');
+    if (card.querySelector('.chart')) {
+      const indicator = card.querySelector('.chart').dataset.indicator;
 
-    container.innerHTML = '';
-    drawLineChart(container, indicator);
+      container.innerHTML = '';
+      drawLineChart(container, indicator);
+    }
+
+    const waypoint = new Waypoint({
+      element: card,
+      handler: () => {
+        Array.from(cards).forEach(card => card.classList.remove('selected'));
+        card.classList.add('selected');
+
+        const cardId = card.dataset.cardId;
+
+        Array.from(timelineDots).forEach(timelineDot => timelineDot.classList.remove('selected'));
+        const timelineDot = document.querySelector(`.timeline__circle[data-card-id="${cardId}"]`);
+        timelineDot.classList.add('selected');
+      },
+      offset: '50%',
+    });
   });
 }
 

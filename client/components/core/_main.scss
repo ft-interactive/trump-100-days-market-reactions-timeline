@@ -74,6 +74,10 @@ $share-button-size: 38px;
       padding: 1em;
       margin-bottom: 1em;
 
+      &.selected {
+        border: 2px solid green;
+      }
+
       &__description {
         width: 50%;
         display: inline-block;
@@ -164,4 +168,3 @@ h2.card__headline {
 .tick {
   font-family: MetricWeb, sans-serif;
 }
-
