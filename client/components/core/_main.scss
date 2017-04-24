@@ -154,22 +154,26 @@ $share-button-size: 38px;
   margin-bottom: 40px;
 }
 
+.card__description {
+  padding-top: 0px;
+  margin-top: 0px;
+}
+
 /* CARD TEXT */
 
 .article-body {
   .card__date {
     color:#ffffff;
-    width: 200px;
+    width: 190px;
     border-radius:2px;
     font-weight: 600;
     font-size: 0.85em;
-    margin-bottom: 16px;
     letter-spacing: 1.1px;
-    background-color:#26747a;
+    background-color:#a7a59b;
     padding: 10px;
     display: block;
     position:relative;
-    bottom:30px;
+    bottom:35px;
   }
 
   .card__day {
@@ -191,7 +195,7 @@ h2.card__headline {
 
 .chart__title {
   color:#333;
-  margin-top:34px;
+  margin-top:37px;
   font-size:0.95em;
   font-weight: 500;
 }
