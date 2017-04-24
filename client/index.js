@@ -50,3 +50,12 @@ window.addEventListener('scroll', () => {
     document.querySelector('#timeline-container').classList.remove('tacked');
   }
 });
+
+// const timelineDots = document.querySelectorAll('.timeline__circle');
+// Array.from(timelineDots).forEach((timelineDot) => {
+//   timelineDot.addEventListener('click', () => {
+//     const id = timelineDot.dataset.cardId;
+//     const yPos = document.querySelector(`.card[data-card-id="${id}"]`).offsetTop;
+//     window.scrollTo(0, yPos);
+//   });
+// });

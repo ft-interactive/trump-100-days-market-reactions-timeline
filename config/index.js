@@ -17,8 +17,6 @@ export default async () => {
       event.dateTimelineFormatted = d3TimeFormat.timeFormat('%b %d')(new Date(event.date));
     });
 
-    console.log(events);
-
     return {
       events,
       text: data.top,
