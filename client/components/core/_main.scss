@@ -72,10 +72,10 @@ $share-button-size: 38px;
       border-bottom-left-radius: 4px;
       box-sizing: border-box;
       padding: 1em;
-      margin-bottom: 1em;
+      margin-bottom: 2.5em;
 
       &.selected {
-        border: 2px solid green;
+        border: 2px solid #26747a;
       }
 
       &__description {
@@ -83,20 +83,60 @@ $share-button-size: 38px;
         display: inline-block;
       }
 
-      .chart {
-        width: 50%;
-        display: inline-block;
-      }
-
       &__date {
         text-transform: uppercase;
-        color: getColor('pink-tint4');
+        color:#ffffff;
+        width: 190px;
+        border-radius:2px;
+        font-weight: 600;
+        font-size: 0.85em;
+        letter-spacing: 1.1px;
+        background-color:#a7a59b;
+        padding: 10px;
+        display: block;
+        position:relative;
+        bottom:35px;
+
+        &.selected {
+          background-color:#000;
+        }
+      }
+
+      &__day {
+        font-weight:normal;
       }
 
       &__headline {
         margin-top: 0;
         margin-bottom: 0.5em;
         font-size: 1.3em;
+      }
+
+      &__text p {
+        font-family: MetricWeb, sans-serif;
+        color:#777777;
+        line-height: 1.3em;
+      }
+
+      .chart {
+        width: 50%;
+        display: inline-block;
+
+        &__title {
+          color:#333;
+          font-size:0.95em;
+          font-weight: 500;
+        }
+
+        &__subtitle {
+          color:#74736c;
+          margin-top:6px;
+          font-size: 0.9em;
+        }
+
+        .tick {
+          font-family: MetricWeb, sans-serif;
+        }
       }
     }
   }
@@ -135,81 +175,3 @@ $share-button-size: 38px;
   box-sizing: content-box !important;
 }
 
-/*
-
-.card o-grid-row {
-
-}
-
-.card__tab {
-  width:200px;
-  height:30px;
-  background-color:#26747a;
-  float: right;
-  margin-left: -1px;
-  position: relative;
-  bottom: 30px;
-  left:380px;
-  text-decoration: none;
-}
-
-*/
-.article-body .card {
-  margin-bottom: 40px;
-}
-
-.card__description {
-  padding-top: 0px;
-  margin-top: 0px;
-}
-
-/* CARD TEXT */
-
-.article-body {
-  .card__date {
-    color:#ffffff;
-    width: 190px;
-    border-radius:2px;
-    font-weight: 600;
-    font-size: 0.85em;
-    letter-spacing: 1.1px;
-    background-color:#a7a59b;
-    padding: 10px;
-    display: block;
-    position:relative;
-    bottom:35px;
-  }
-
-  .card__day {
-    font-weight:normal;
-  }
-}
-
-h2.card__headline {
-  line-height: 1em;
-}
-
-.card__text p {
-  font-family: MetricWeb, sans-serif;
-  color:#777777;
-  line-height: 1.3em;
-}
-
-/* CHARTS */
-
-.chart__title {
-  color:#333;
-  margin-top:37px;
-  font-size:0.95em;
-  font-weight: 500;
-}
-
-.chart__subtitle {
-  color:#74736c;
-  margin-top:6px;
-  font-size: 0.9em;
-}
-
-.tick {
-  font-family: MetricWeb, sans-serif;
-}
