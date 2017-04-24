@@ -1,9 +1,10 @@
 #timeline-wrapper {
   padding: 0;
-  margin: 3em auto;
+  margin: 4em auto 3em auto;
 
   #timeline {
     width: 100%;
+    position: relative;
 
     #timeline__line {
       width: 100%;
@@ -19,6 +20,36 @@
       border-radius: 50%;
       background: getColor('teal-1');
       opacity: 0.8;
+
+      .timeline__circle__text {
+        display: none;
+      }
+
+      &.selected {
+        border: 5px solid getColor('teal-1');
+        width: 12.5px;
+        height: 12.5px;
+        background: white;
+        opacity: 1;
+        z-index: 5;
+
+        .timeline__circle__text {
+          display: block;
+          text-align: center;
+          width: 500%;
+          margin-left: -250%;
+          margin-top: -3em;
+
+          &-date {
+            font-weight: 600;
+          }
+        }
+      }
+    }
+
+    .timeline__circle__end {
+      background: grey;
+      opacity: 1;
     }
   }
 }

@@ -1,4 +1,5 @@
 import * as bertha from 'bertha-client';
+import * as d3TimeFormat from 'd3-time-format';
 import moment from 'moment';
 import article from './article';
 import getFlags from './flags';
@@ -13,6 +14,7 @@ export default async () => {
     const events = data.events.sort((a, b) => new Date(a.date) - new Date(b.date));
     events.forEach((event) => {
       event.numDay = moment(event.date).diff(moment([2017, 0, 20]), 'days');
+      event.dateTimelineFormatted = d3TimeFormat.timeFormat('%b %d')(new Date(event.date));
     });
 
     return {
