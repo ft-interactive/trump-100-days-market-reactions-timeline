@@ -1,6 +1,6 @@
 import * as d3 from 'd3';
 
-export default function drawLineChart(container, indicator) {
+export default function drawLineChart(container, indicator, start, end) {
   const margin = {
     top: 0,
     right: 25,
@@ -31,6 +31,10 @@ export default function drawLineChart(container, indicator) {
       d.date = parseTime(d.Date);
       d.value = +d['Last Price'];
     });
+
+    if (start && end) {
+      data = data.filter(d => new Date(d.date) >= new Date(start) && new Date(d.date) <= new Date(end));
+    }
 
     const y = d3.scaleLinear()
       .domain(d3.extent(data, d => d.value))

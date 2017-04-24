@@ -50,7 +50,7 @@
   </div>
 
   {% if event.marketindicator %}
-  <div class="chart" data-indicator={{ event.marketindicator }} data-o-grid-colspan="S6 12">
+  <div class="chart" data-indicator="{{ event.marketindicator }}" data-start="{{ event.chartstartdate }}" data-end="{{ event.chartenddate }}" data-o-grid-colspan="S6 12">
     <div class="chart__title">{{ event.charttitle }}</div>
     <div class="chart__subtitle">{{ event.chartsubtitle }}</div>
     <div class="chart_container"></div>
