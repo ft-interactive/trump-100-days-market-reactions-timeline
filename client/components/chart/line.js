@@ -1,6 +1,6 @@
 import * as d3 from 'd3';
 
-export default function drawLineChart(container, indicator, start, end, yAxisHighlight) {
+export default function drawLineChart(container, indicator, start, end, xAxisHighlight, xAxisHighlightText, yAxisHighlight) {
   const margin = {
     top: 0,
     right: 25,
@@ -84,6 +84,15 @@ export default function drawLineChart(container, indicator, start, end, yAxisHig
         .call(xAxis)
       .select('.domain')
         .remove();
+
+    if (xAxisHighlight) {
+      g.append('line')
+        .attr('class', 'yAxisHighlight')
+        .attr('x1', x(new Date(xAxisHighlight)))
+        .attr('x2', x(new Date(xAxisHighlight)))
+        .attr('y1', 0)
+        .attr('y2', height - margin.bottom);
+    }
 
     if (yAxisHighlight) {
       g.append('line')
