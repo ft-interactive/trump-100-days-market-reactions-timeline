@@ -18,3 +18,14 @@ drawCharts();
 window.addEventListener('resize', () => {
   debounce(drawCharts(), 100);
 });
+
+window.addEventListener('scroll', () => {
+  const containerHeight = document.querySelector('#timeline-wrapper').getBoundingClientRect().bottom - document.querySelector('#timeline-wrapper').getBoundingClientRect().top;
+  const containerPosition = document.querySelector('#timeline-wrapper').offsetTop + containerHeight;
+
+  if (window.scrollY > containerPosition) {
+    document.querySelector('#timeline-container').classList.add('tacked');
+  } else {
+    document.querySelector('#timeline-container').classList.remove('tacked');
+  }
+});
