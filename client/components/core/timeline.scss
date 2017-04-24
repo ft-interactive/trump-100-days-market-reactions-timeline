@@ -1,6 +1,21 @@
 #timeline-wrapper {
-  padding: 0;
   margin: 4em auto 3em auto;
+
+  #timeline-container.tacked {
+    position: fixed;
+    width: 100%;
+    box-sizing: border-box;
+    top: 0;
+    left: 0;
+    background: getColor('grey-tint4');
+    color: white;
+    padding: 0.8em;
+    overflow: hidden;
+    z-index: 5;
+    box-shadow: 1px 1px 1px 1px rgba(176, 176, 176, 0.5);
+    padding: 4em 50px 3em;
+    margin: 0;
+  }
 
   #timeline {
     width: 100%;
