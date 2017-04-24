@@ -135,12 +135,54 @@ $share-button-size: 38px;
   box-sizing: content-box !important;
 }
 
+/*
+
+.card o-grid-row {
+
+}
+
+.card__tab {
+  width:200px;
+  height:30px;
+  background-color:#26747a;
+  float: right;
+  margin-left: -1px;
+  position: relative;
+  bottom: 30px;
+  left:380px;
+  text-decoration: none;
+}
+
+*/
+.article-body .card {
+  margin-bottom: 40px;
+}
+
+.card__description {
+  padding-top: 0px;
+  margin-top: 0px;
+}
+
 /* CARD TEXT */
 
-.card__date {
-  font-size: 0.85em;
-  margin-bottom: 16px;
-  letter-spacing: 1.5px;
+.article-body {
+  .card__date {
+    color:#ffffff;
+    width: 190px;
+    border-radius:2px;
+    font-weight: 600;
+    font-size: 0.85em;
+    letter-spacing: 1.1px;
+    background-color:#a7a59b;
+    padding: 10px;
+    display: block;
+    position:relative;
+    bottom:35px;
+  }
+
+  .card__day {
+    font-weight:normal;
+  }
 }
 
 h2.card__headline {
@@ -149,20 +191,23 @@ h2.card__headline {
 
 .card__text p {
   font-family: MetricWeb, sans-serif;
+  color:#777777;
   line-height: 1.3em;
 }
 
 /* CHARTS */
 
 .chart__title {
-  color:#936971;
-  margin-top:34px;
-  font-size:0.9em;
+  color:#333;
+  margin-top:37px;
+  font-size:0.95em;
+  font-weight: 500;
 }
 
 .chart__subtitle {
   color:#74736c;
-  font-size: 0.8em;
+  margin-top:6px;
+  font-size: 0.9em;
 }
 
 .tick {
