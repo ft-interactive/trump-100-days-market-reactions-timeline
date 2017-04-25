@@ -15,8 +15,8 @@
     box-sizing: border-box;
     top: 0;
     left: 0;
-    background: getColor('grey-tint4');
-    color: white;
+    background: getColor('pink-tint1');
+    /*color: white;*/
     padding: 0.8em;
     overflow: hidden;
     z-index: 5;
@@ -24,9 +24,9 @@
     padding: 5em 50px 4em;
     margin: 0;
 
-    .timeline__ends {
+    /*.timeline__ends {
       color: white;
-    }
+    }*/
 
     .timeline__ends#timeline__ends__start {
       left: 0;
@@ -41,7 +41,7 @@
     width: 100px;
     display: inline-block;
     position: absolute;
-    margin-top: -1em;
+    margin-top: -1.6em;
     color: getColor('pink-tint5');
 
     &#timeline__ends__start {
