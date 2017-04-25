@@ -130,7 +130,7 @@ export default function drawLineChart(container, indicator, start, end, chartpoi
         .attr('r', 3)
         .attr('cx', x(new Date(chartpoint)))
         .attr('cy', y(yAxisHighlight))
-        .attr('stroke', '#ff7f8a')
+        .attr('stroke', '#505050')
         .attr('stroke-width', 3)
         .attr('fill', '#FDF8F2');
     }

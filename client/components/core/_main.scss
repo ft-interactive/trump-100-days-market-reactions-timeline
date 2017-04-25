@@ -76,6 +76,10 @@ $share-button-size: 38px;
 
       &.selected {
         border: 2px solid #26747a;
+
+        .card__date {
+          background-color: #26747a;
+        }
       }
 
       &__description {
@@ -97,10 +101,6 @@ $share-button-size: 38px;
         padding: 10px;
         position:relative;
         bottom:20px;
-
-        &.selected {
-          background-color: #000;
-        }
       }
 
       &__day {

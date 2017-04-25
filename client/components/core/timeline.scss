@@ -24,17 +24,12 @@
     top: 0;
     left: 0;
     background: getColor('pink-tint1');
-    /*color: white;*/
     padding: 0.8em;
     overflow: hidden;
     z-index: 5;
     box-shadow: 1px 1px 1px 1px rgba(176, 176, 176, 0.5);
     padding: 5em 50px 4em;
     margin: 0;
-
-    /*.timeline__ends {
-      color: white;
-    }*/
 
     .timeline__ends#timeline__ends__start {
       left: 0;
@@ -54,6 +49,7 @@
 
     &#timeline__ends__start {
       left: -40px;
+      text-align: right;
     }
 
     &#timeline__ends__end {
@@ -61,7 +57,6 @@
     }
 
     .timeline__circle__text {
-      text-align: center;
 
       &-date {
         font-weight: 600;
@@ -95,6 +90,7 @@
 
       &.selected {
         border: 3px solid getColor('teal-2');
+        top: -6.66px;
         width: 10px;
         height: 10px;
         background: white;
