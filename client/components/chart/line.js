@@ -80,7 +80,7 @@ export default function drawLineChart(container, indicator, start, end, chartpoi
           if (i === 0) {
             return d3.timeFormat('%b %-d')(d);
           }
-          if (d3.timeFormat('%H:%M')(d) === "00:00") {
+          if (d3.timeFormat('%H:%M')(d) === '00:00') {
             return d3.timeFormat('%b %d')(d);
           }
           return d3.timeFormat('%H:%M')(d);
