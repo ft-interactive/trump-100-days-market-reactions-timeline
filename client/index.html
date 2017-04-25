@@ -37,7 +37,7 @@
 {% for event in data.events %}
 
 {% if event.marketindicator %}
-  {% set colwidth = "S6 12" %}
+  {% set colwidth = "M6 12" %}
 {% else %}
   {% set colwidth = "12" %}
 {% endif %}
@@ -58,7 +58,7 @@
     data-xaxishighlight="{{ event.chartxaxishighlight }}"
     data-xaxishighlighttext="{{ event.chartxaxishighlighttext }}"
     data-yaxishighlight="{{ event.chartyaxishighlight }}"
-    data-o-grid-colspan="S6 12"
+    data-o-grid-colspan="M6 12"
   >
     <div class="chart__title">{{ event.charttitle }}</div>
     <div class="chart__subtitle">{{ event.chartsubtitle }}</div>

@@ -65,14 +65,19 @@ export default function drawLineChart(container, indicator, start, end, chartpoi
       .domain(d3.extent(data, d => d.date))
       .rangeRound([0, width - margin.left - margin.right - yLabelOffset]);
 
+    const xAxisTicks = x.ticks(5);
+
     const xAxis = d3.axisBottom(x)
       .ticks(5)
       .tickSizeOuter(5)
       .tickFormat((d, i) => {
         if (indicator.indexOf('intraday') > -1) {
+          if (i === 0) {
+            return d3.timeFormat('%b %-d')(d);
+          }
           return d3.timeFormat('%H:%M')(d);
         }
-        if (i === 0 || i === 4) {
+        if (i === 0 || i === xAxisTicks.length - 1) {
           return d3.timeFormat('%b ’%y')(d);
         }
         return d3.timeFormat('%b')(d);
