@@ -1,6 +1,6 @@
 import * as d3 from 'd3';
 
-export default function drawLineChart(container, indicator, start, end, xAxisHighlight, xAxisHighlightText, yAxisHighlight) {
+export default function drawLineChart(container, indicator, start, end, chartpoint, xAxisHighlight, xAxisHighlightText, yAxisHighlight) {
   const margin = {
     top: 0,
     right: 25,
@@ -92,6 +92,15 @@ export default function drawLineChart(container, indicator, start, end, xAxisHig
         .attr('x2', x(new Date(xAxisHighlight)))
         .attr('y1', 0)
         .attr('y2', height - margin.bottom);
+
+      if (xAxisHighlightText) {
+        g.append('text')
+          .attr('class', 'xAxisHighlightText')
+          .attr('x', x(new Date(xAxisHighlight)))
+          .attr('y', -5)
+          .attr('text-anchor', 'middle')
+          .text(xAxisHighlightText);
+      }
     }
 
     if (yAxisHighlight) {
@@ -115,5 +124,15 @@ export default function drawLineChart(container, indicator, start, end, xAxisHig
         .attr('stroke-linecap', 'round')
         .attr('stroke-width', 2.5)
         .attr('d', line);
+
+    if (chartpoint) {
+      g.append('circle')
+        .attr('r', 3)
+        .attr('cx', x(new Date(chartpoint)))
+        .attr('cy', y(yAxisHighlight))
+        .attr('stroke', '#ff7f8a')
+        .attr('stroke-width', 3)
+        .attr('fill', '#FDF8F2');
+    }
   });
 }
