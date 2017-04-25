@@ -28,11 +28,12 @@ export default function drawLineChart(container, indicator, start, end, chartpoi
     }
 
     data.forEach((d) => {
-      d.date = parseTime(d.Date);
-      d.value = +d['Last Price'];
+      d.date = parseTime(d.Date); // eslint-disable-line
+      d.value = +d['Last Price']; // eslint-disable-line
     });
 
     if (start && end) {
+      // eslint-disable-next-line
       data = data.filter(d => new Date(d.date) >= new Date(start) && new Date(d.date) <= new Date(end));
     }
 
@@ -56,10 +57,10 @@ export default function drawLineChart(container, indicator, start, end, chartpoi
     const yLabelOffset = d3.select(yLabel.node()).select('text').node().getBBox().width;
 
     yLabel.selectAll('text')
-      .attr('x', width - margin.left - margin.right - yLabelOffset + 10);
+      .attr('x', (width - margin.left - margin.right - yLabelOffset) + 10);
 
     yLabel.selectAll('line')
-      .attr('x2', width - margin.left - margin.right - yLabelOffset + 5);
+      .attr('x2', (width - margin.left - margin.right - yLabelOffset) + 5);
 
     const x = d3.scaleTime()
       .domain(d3.extent(data, d => d.date))
@@ -112,7 +113,7 @@ export default function drawLineChart(container, indicator, start, end, chartpoi
       g.append('line')
         .attr('class', 'yAxisHighlight')
         .attr('x1', 0)
-        .attr('x2', width - margin.left - margin.right - yLabelOffset + 5)
+        .attr('x2', (width - margin.left - margin.right - yLabelOffset) + 5)
         .attr('y1', y(yAxisHighlight))
         .attr('y2', y(yAxisHighlight));
     }
