@@ -79,6 +79,10 @@ $share-button-size: 38px;
 
       &.selected {
         border: 2px solid #26747a;
+
+        .card__date {
+          background-color: getColor('teal-1');
+        }
       }
 
       &__description {
@@ -103,10 +107,6 @@ $share-button-size: 38px;
 
         @include oGridRespondTo($until: M) {
           left: 25px;
-        }
-
-        &.selected {
-          background-color: #000;
         }
       }
 
