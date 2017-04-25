@@ -73,7 +73,7 @@
     #timeline__line {
       width: 100%;
       height: 4px;
-      background: getColor('grey-tint1');
+      background: getColor('grey-tint2');
     }
 
     .timeline__circle {
@@ -83,7 +83,7 @@
       height: 10px;
       border-radius: 50%;
       background: getColor('white');
-      border: 2px solid getColor('grey-tint1');
+      border: 2px solid getColor('grey-tint2');
 
       .timeline__circle__text {
         display: none;
@@ -112,7 +112,7 @@
     }
 
     .timeline__circle__end {
-      background: getColor('grey-tint1');
+      background: getColor('grey-tint2');
       opacity: 1;
     }
   }
