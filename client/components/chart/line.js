@@ -1,6 +1,6 @@
 import * as d3 from 'd3';
 
-export default function drawLineChart(container, indicator, start, end) {
+export default function drawLineChart(container, indicator, start, end, chartpoint, xAxisHighlight, xAxisHighlightText, yAxisHighlight) {
   const margin = {
     top: 0,
     right: 25,
@@ -66,8 +66,12 @@ export default function drawLineChart(container, indicator, start, end) {
       .rangeRound([0, width - margin.left - margin.right - yLabelOffset]);
 
     const xAxis = d3.axisBottom(x)
+      .ticks(5)
       .tickSizeOuter(5)
       .tickFormat((d, i) => {
+        if (indicator.indexOf('intraday') > -1) {
+          return d3.timeFormat('%H:%M')(d);
+        }
         if (i === 0 || i === 4) {
           return d3.timeFormat('%b ’%y')(d);
         }
@@ -81,6 +85,33 @@ export default function drawLineChart(container, indicator, start, end) {
       .select('.domain')
         .remove();
 
+    if (xAxisHighlight) {
+      g.append('line')
+        .attr('class', 'yAxisHighlight')
+        .attr('x1', x(new Date(xAxisHighlight)))
+        .attr('x2', x(new Date(xAxisHighlight)))
+        .attr('y1', 0)
+        .attr('y2', height - margin.bottom);
+
+      if (xAxisHighlightText) {
+        g.append('text')
+          .attr('class', 'xAxisHighlightText')
+          .attr('x', x(new Date(xAxisHighlight)))
+          .attr('y', -5)
+          .attr('text-anchor', 'middle')
+          .text(xAxisHighlightText);
+      }
+    }
+
+    if (yAxisHighlight) {
+      g.append('line')
+        .attr('class', 'yAxisHighlight')
+        .attr('x1', 0)
+        .attr('x2', width - margin.left - margin.right - yLabelOffset + 5)
+        .attr('y1', y(yAxisHighlight))
+        .attr('y2', y(yAxisHighlight));
+    }
+
     const line = d3.line()
       .x(d => x(d.date))
       .y(d => y(d.value));
@@ -93,5 +124,15 @@ export default function drawLineChart(container, indicator, start, end) {
         .attr('stroke-linecap', 'round')
         .attr('stroke-width', 2.5)
         .attr('d', line);
+
+    if (chartpoint) {
+      g.append('circle')
+        .attr('r', 3)
+        .attr('cx', x(new Date(chartpoint)))
+        .attr('cy', y(yAxisHighlight))
+        .attr('stroke', '#ff7f8a')
+        .attr('stroke-width', 3)
+        .attr('fill', '#FDF8F2');
+    }
   });
 }
