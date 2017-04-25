@@ -1,4 +1,5 @@
 import * as d3 from 'd3';
+import moment from 'moment';
 
 export default function drawLineChart(container, indicator, start, end, chartpoint, xAxisHighlight, xAxisHighlightText, yAxisHighlight) {
   const margin = {
@@ -32,9 +33,12 @@ export default function drawLineChart(container, indicator, start, end, chartpoi
       d.value = +d['Last Price']; // eslint-disable-line
     });
 
+    let totalDays = null;
+
     if (start && end) {
       // eslint-disable-next-line
       data = data.filter(d => new Date(d.date) >= new Date(start) && new Date(d.date) <= new Date(end));
+      totalDays = moment(end).diff(moment(start), 'days') || null;
     }
 
     const y = d3.scaleLinear()
@@ -72,11 +76,20 @@ export default function drawLineChart(container, indicator, start, end, chartpoi
       .ticks(5)
       .tickSizeOuter(5)
       .tickFormat((d, i) => {
-        if (indicator.indexOf('intraday') > -1) {
+        if (indicator.indexOf('intraday') > -1 || (totalDays && totalDays < 3)) {
           if (i === 0) {
             return d3.timeFormat('%b %-d')(d);
           }
+          if (d3.timeFormat('%H:%M')(d) === "00:00") {
+            return d3.timeFormat('%b %d')(d);
+          }
           return d3.timeFormat('%H:%M')(d);
+        }
+        if (totalDays && totalDays >= 3 && totalDays <= 30) {
+          if (i === 0) {
+            return d3.timeFormat('%b')(d);
+          }
+          return d3.timeFormat('%d')(d);
         }
         if (i === 0 || i === xAxisTicks.length - 1) {
           return d3.timeFormat('%b ’%y')(d);
