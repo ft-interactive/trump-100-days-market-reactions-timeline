@@ -42,9 +42,10 @@
   {% set colwidth = "12" %}
 {% endif %}
 
+
 <div class="card o-grid-row {% if loop.index0 == 0 %} selected {% endif %}" data-card-id={{ loop.index0 }}>
+  <div class="card__date"><span class="card__day">Day {{ event.numDay + 1 }} |</span> {{ event.date }}</div>
   <div class="card__description" data-o-grid-colspan={{ colwidth }}>
-    <div class="card__date"><span class="card__day">Day {{ event.numDay + 1 }} |</span> {{ event.date }}</div>
     <h2 class="card__headline">{{ event.headline }}</h2>
     <div class="card__text">{{ event.text | md }}</div>
   </div>

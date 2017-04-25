@@ -1,3 +1,5 @@
+@import 'o-grid/main';
+
 $font-sans: MetricWeb, sans-serif;
 $font-serif: Georgia, serif;
 $font-display: FinancierDisplayWeb, Georgia, serif;
@@ -73,19 +75,15 @@ $share-button-size: 38px;
       padding: 1em;
       padding-top:40px;
       margin-bottom: 2.5em;
+      position: relative;
 
       &.selected {
         border: 2px solid #26747a;
-
-        .card__date {
-          background-color: #26747a;
-        }
       }
 
       &__description {
         width: 50%;
         position:relative;
-        bottom:40px;
       }
 
       &__date {
@@ -99,8 +97,17 @@ $share-button-size: 38px;
         font-size: 0.85em;
         letter-spacing: 1.1px;
         padding: 10px;
-        position:relative;
-        bottom:20px;
+        position:absolute;
+        top: -20px;
+        left: 35px;
+
+        @include oGridRespondTo($until: M) {
+          left: 25px;
+        }
+
+        &.selected {
+          background-color: #000;
+        }
       }
 
       &__day {
