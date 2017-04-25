@@ -10,8 +10,8 @@ export default async () => {
   const flags = await getFlags();
   const onwardJourney = await getOnwardJourney();
 
-  const data = await bertha.get('1GGUiKq2qc4DkedcYNA4gqOoDar06jlTfaORH3ASXXPo', ['events', 'top|object']).then((data) => {
-    const events = data.events.sort((a, b) => new Date(a.date) - new Date(b.date));
+  const data = await bertha.get('1GGUiKq2qc4DkedcYNA4gqOoDar06jlTfaORH3ASXXPo', ['events', 'top|object']).then((result) => {
+    const events = result.events.sort((a, b) => new Date(a.date) - new Date(b.date));
     events.forEach((event) => {
       event.numDay = moment(event.date).diff(moment([2017, 0, 20]), 'days');
       event.dateTimelineFormatted = d3TimeFormat.timeFormat('%b %d')(new Date(event.date));
@@ -19,7 +19,7 @@ export default async () => {
 
     return {
       events,
-      text: data.top,
+      text: result.top,
     };
   }).catch(e => console.log('Error fetching from Bertha', e));
   /*
@@ -44,12 +44,13 @@ export default async () => {
 
   */
 
+  d.headline = data.text.headline;
+  d.summary = data.text.standfirst;
+
   return {
     ...d,
     flags,
     onwardJourney,
     data,
-    headline: data.text.headline,
-    summary: data.text.standfirst,
   };
 };
