@@ -46,6 +46,9 @@ export default async () => {
 
   d.headline = data.text.headline;
   d.summary = data.text.standfirst;
+  d.tweetText = data.text.tweetText;
+  d.twitterHeadline = data.text.twitterHeadline;
+  d.facebookHeadline = data.text.facebookHeadline;
 
   return {
     ...d,
