@@ -6,9 +6,7 @@
   height: 4px;
 
   @include oGridRespondTo($until: M) {
-    height: 0;
-    overflow: hidden;
-    margin: 1em;
+    display: none;
   }
 
   #timeline-container {
@@ -138,12 +136,6 @@
 
 @media (max-width: 950px) {
   #timeline-wrapper {
-    height: 0;
-    overflow: hidden;
-    margin: 1em;
-  }
-
-  #timeline-container {
     display: none;
   }
 }
