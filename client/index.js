@@ -1,5 +1,6 @@
 import debounce from 'lodash.debounce';
 import drawLineChart from './components/chart/line';
+import scrollTo from './components/core/scrollTo';
 
 function drawCharts() {
   const cards = document.querySelectorAll('.card');
@@ -20,19 +21,38 @@ function drawCharts() {
       drawLineChart(container, indicator, startdate, enddate, chartpoint, xAxisHighlight, xAxisHighlightText, yAxisHighlight);
     }
 
-    const waypoint = new Waypoint({
+    const waypointDown = new Waypoint({
       element: card,
-      handler: () => {
-        Array.from(cards).forEach(card => card.classList.remove('selected'));
-        card.classList.add('selected');
+      handler: (direction) => {
+        if (direction === 'down') {
+          Array.from(cards).forEach(c => c.classList.remove('selected'));
+          card.classList.add('selected');
 
-        const cardId = card.dataset.cardId;
+          const cardId = card.dataset.cardId;
 
-        Array.from(timelineDots).forEach(timelineDot => timelineDot.classList.remove('selected'));
-        const timelineDot = document.querySelector(`.timeline__circle[data-card-id="${cardId}"]`);
-        timelineDot.classList.add('selected');
+          Array.from(timelineDots).forEach(timelineDot => timelineDot.classList.remove('selected'));
+          const timelineDot = document.querySelector(`.timeline__circle[data-card-id="${cardId}"]`);
+          timelineDot.classList.add('selected');
+        }
       },
       offset: '50%',
+    });
+
+    const waypointUp = new Waypoint({
+      element: card,
+      handler: (direction) => {
+        if (direction === 'up') {
+          Array.from(cards).forEach(c => c.classList.remove('selected'));
+          card.classList.add('selected');
+
+          const cardId = card.dataset.cardId;
+
+          Array.from(timelineDots).forEach(timelineDot => timelineDot.classList.remove('selected'));
+          const timelineDot = document.querySelector(`.timeline__circle[data-card-id="${cardId}"]`);
+          timelineDot.classList.add('selected');
+        }
+      },
+      offset: '45%',
     });
   });
 }
@@ -54,11 +74,14 @@ window.addEventListener('scroll', () => {
   }
 });
 
-// const timelineDots = document.querySelectorAll('.timeline__circle');
-// Array.from(timelineDots).forEach((timelineDot) => {
-//   timelineDot.addEventListener('click', () => {
-//     const id = timelineDot.dataset.cardId;
-//     const yPos = document.querySelector(`.card[data-card-id="${id}"]`).offsetTop;
-//     window.scrollTo(0, yPos);
-//   });
-// });
+const timelineDots = document.querySelectorAll('.timeline__circle');
+Array.from(timelineDots).forEach((timelineDot) => {
+  timelineDot.addEventListener('click', () => {
+    const id = timelineDot.dataset.cardId;
+    const timelineCardContainerYPos = document.querySelector('#timeline-card-container').offsetTop;
+    const viewportHeight = document.documentElement.clientHeight;
+    // yPos is position of card within timeline-card-container + position of the timeline-card-container. then subtract half height of screen to capture waypoint (and a tiny bit more to capture waypoint)
+    const yPos = document.querySelector(`.card[data-card-id="${id}"]`).offsetTop + (timelineCardContainerYPos - ((viewportHeight / 2) - 50));
+    scrollTo(yPos, 500);
+  });
+});

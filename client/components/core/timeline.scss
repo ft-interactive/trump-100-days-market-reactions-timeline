@@ -90,6 +90,20 @@
         display: none;
       }
 
+      &:hover {
+        .timeline__circle__text {
+          display: block;
+          text-align: center;
+          width: 500%;
+          margin-left: -250%;
+          margin-top: -3em;
+
+          &-date {
+            font-weight: 600;
+          }
+        }
+      }
+
       &.selected {
         border: 3px solid #1c575c;
         top: -6px;
