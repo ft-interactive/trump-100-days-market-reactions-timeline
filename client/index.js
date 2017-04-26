@@ -1,3 +1,5 @@
+/* global Waypoint */
+
 import debounce from 'lodash.debounce';
 import drawLineChart from './components/chart/line';
 import scrollTo from './components/core/scrollTo';
@@ -21,7 +23,8 @@ function drawCharts() {
       drawLineChart(container, indicator, startdate, enddate, chartpoint, xAxisHighlight, xAxisHighlightText, yAxisHighlight);
     }
 
-    const waypointDown = new Waypoint({
+    // waypoint down
+    new Waypoint({
       element: card,
       handler: (direction) => {
         if (direction === 'down') {
@@ -38,7 +41,8 @@ function drawCharts() {
       offset: '50%',
     });
 
-    const waypointUp = new Waypoint({
+    // waypoint up
+    new Waypoint({
       element: card,
       handler: (direction) => {
         if (direction === 'up') {
