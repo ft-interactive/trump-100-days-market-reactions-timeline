@@ -1,7 +1,7 @@
 export default () => ({ // eslint-disable-line
 
   // link file UUID
-  id: '$uuid',
+  id: 'c76e3d9c-2ab9-11e7-9ec8-168383da43b7',
 
   // canonical URL of the published page
   // "https://ig.ft.com/trump-100-days-market-reactions-timeline/" get filled in by the ./configure script
