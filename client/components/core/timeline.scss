@@ -1,6 +1,14 @@
+@import 'o-grid/main';
+
 #timeline-wrapper {
   margin: 5em auto 4em auto;
   max-width: 825px;
+
+  @include oGridRespondTo($until: M) {
+    height: 0;
+    overflow: hidden;
+    margin: 1em;
+  }
 
   #timeline-container {
     position: relative;
@@ -15,18 +23,13 @@
     box-sizing: border-box;
     top: 0;
     left: 0;
-    background: getColor('grey-tint4');
-    color: white;
+    background: getColor('pink-tint1');
     padding: 0.8em;
     overflow: hidden;
     z-index: 5;
-    box-shadow: 1px 1px 1px 1px rgba(176, 176, 176, 0.5);
+    box-shadow:0 1px 4px rgba(0, 0, 0, 0.3);
     padding: 5em 50px 4em;
     margin: 0;
-
-    .timeline__ends {
-      color: white;
-    }
 
     .timeline__ends#timeline__ends__start {
       left: 0;
@@ -41,11 +44,12 @@
     width: 100px;
     display: inline-block;
     position: absolute;
-    margin-top: -1em;
+    margin-top: -1.6em;
     color: getColor('pink-tint5');
 
     &#timeline__ends__start {
       left: -40px;
+      text-align: right;
     }
 
     &#timeline__ends__end {
@@ -53,7 +57,6 @@
     }
 
     .timeline__circle__text {
-      text-align: center;
 
       &-date {
         font-weight: 600;
@@ -70,27 +73,29 @@
     #timeline__line {
       width: 100%;
       height: 4px;
-      background: getColor('grey-tint1');
+      background: getColor('grey-tint2');
     }
 
     .timeline__circle {
       position: absolute;
-      top: -5px;
-      width: 13px;
-      height: 13px;
+      top: -5.5px;
+      width: 10px;
+      height: 10px;
       border-radius: 50%;
-      background: getColor('teal-1');
       cursor: pointer;
+      background: getColor('white');
+      border: 2px solid getColor('grey-tint2');
 
       .timeline__circle__text {
         display: none;
       }
 
       &.selected {
-        border: 3px solid getColor('teal-2');
+        border: 3px solid #1c575c;
+        top: -6px;
         width: 10px;
         height: 10px;
-        background: white;
+        background: getColor('teal-1');
         z-index: 5;
 
         .timeline__circle__text {
@@ -108,7 +113,7 @@
     }
 
     .timeline__circle__end {
-      background: grey;
+      background: getColor('grey-tint2');
       opacity: 1;
     }
   }

@@ -1,6 +1,7 @@
 import * as d3 from 'd3';
+import moment from 'moment';
 
-export default function drawLineChart(container, indicator, start, end, yAxisHighlight) {
+export default function drawLineChart(container, indicator, start, end, chartpoint, xAxisHighlight, xAxisHighlightText, yAxisHighlight) {
   const margin = {
     top: 0,
     right: 25,
@@ -28,12 +29,16 @@ export default function drawLineChart(container, indicator, start, end, yAxisHig
     }
 
     data.forEach((d) => {
-      d.date = parseTime(d.Date);
-      d.value = +d['Last Price'];
+      d.date = parseTime(d.Date); // eslint-disable-line
+      d.value = +d['Last Price']; // eslint-disable-line
     });
 
+    let totalDays = null;
+
     if (start && end) {
+      // eslint-disable-next-line
       data = data.filter(d => new Date(d.date) >= new Date(start) && new Date(d.date) <= new Date(end));
+      totalDays = moment(end).diff(moment(start), 'days') || null;
     }
 
     const y = d3.scaleLinear()
@@ -56,23 +61,37 @@ export default function drawLineChart(container, indicator, start, end, yAxisHig
     const yLabelOffset = d3.select(yLabel.node()).select('text').node().getBBox().width;
 
     yLabel.selectAll('text')
-      .attr('x', width - margin.left - margin.right - yLabelOffset + 10);
+      .attr('x', (width - margin.left - margin.right - yLabelOffset) + 10);
 
     yLabel.selectAll('line')
-      .attr('x2', width - margin.left - margin.right - yLabelOffset + 5);
+      .attr('x2', (width - margin.left - margin.right - yLabelOffset) + 5);
 
     const x = d3.scaleTime()
       .domain(d3.extent(data, d => d.date))
       .rangeRound([0, width - margin.left - margin.right - yLabelOffset]);
 
+    const xAxisTicks = x.ticks(5);
+
     const xAxis = d3.axisBottom(x)
       .ticks(5)
       .tickSizeOuter(5)
       .tickFormat((d, i) => {
-        if (indicator.indexOf('intraday') > -1) {
+        if (indicator.indexOf('intraday') > -1 || (totalDays && totalDays < 3)) {
+          if (i === 0) {
+            return d3.timeFormat('%b %-d')(d);
+          }
+          if (d3.timeFormat('%H:%M')(d) === '00:00') {
+            return d3.timeFormat('%b %d')(d);
+          }
           return d3.timeFormat('%H:%M')(d);
         }
-        if (i === 0 || i === 4) {
+        if (totalDays && totalDays >= 3 && totalDays <= 30) {
+          if (i === 0) {
+            return d3.timeFormat('%b')(d);
+          }
+          return d3.timeFormat('%d')(d);
+        }
+        if (i === 0 || i === xAxisTicks.length - 1) {
           return d3.timeFormat('%b ’%y')(d);
         }
         return d3.timeFormat('%b')(d);
@@ -85,11 +104,29 @@ export default function drawLineChart(container, indicator, start, end, yAxisHig
       .select('.domain')
         .remove();
 
+    if (xAxisHighlight) {
+      g.append('line')
+        .attr('class', 'yAxisHighlight')
+        .attr('x1', x(new Date(xAxisHighlight)))
+        .attr('x2', x(new Date(xAxisHighlight)))
+        .attr('y1', 0)
+        .attr('y2', height - margin.bottom);
+
+      if (xAxisHighlightText) {
+        g.append('text')
+          .attr('class', 'xAxisHighlightText')
+          .attr('x', x(new Date(xAxisHighlight)))
+          .attr('y', -5)
+          .attr('text-anchor', 'middle')
+          .text(xAxisHighlightText);
+      }
+    }
+
     if (yAxisHighlight) {
       g.append('line')
         .attr('class', 'yAxisHighlight')
         .attr('x1', 0)
-        .attr('x2', width - margin.left - margin.right - yLabelOffset + 5)
+        .attr('x2', (width - margin.left - margin.right - yLabelOffset) + 5)
         .attr('y1', y(yAxisHighlight))
         .attr('y2', y(yAxisHighlight));
     }
@@ -106,5 +143,15 @@ export default function drawLineChart(container, indicator, start, end, yAxisHig
         .attr('stroke-linecap', 'round')
         .attr('stroke-width', 2.5)
         .attr('d', line);
+
+    if (chartpoint) {
+      g.append('circle')
+        .attr('r', 3)
+        .attr('cx', x(new Date(chartpoint)))
+        .attr('cy', y(yAxisHighlight))
+        .attr('stroke', '#505050')
+        .attr('stroke-width', 3)
+        .attr('fill', '#FDF8F2');
+    }
   });
 }

@@ -27,7 +27,7 @@
     <div class="timeline__ends" id="timeline__ends__end">
       <div class="timeline__circle__text">
         <div class="timeline__circle__text-date">Apr 29</div>
-        <div>Trump's 100th day in office</div>
+        <div>100th day in office</div>
       </div>
     </div>
   </div>
@@ -37,14 +37,15 @@
 {% for event in data.events %}
 
 {% if event.marketindicator %}
-  {% set colwidth = "S6 12" %}
+  {% set colwidth = "M6 12" %}
 {% else %}
   {% set colwidth = "12" %}
 {% endif %}
 
+
 <div class="card o-grid-row {% if loop.index0 == 0 %} selected {% endif %}" data-card-id={{ loop.index0 }}>
+  <div class="card__date"><span class="card__day">Day {{ event.numDay + 1 }} |</span> {{ event.date }}</div>
   <div class="card__description" data-o-grid-colspan={{ colwidth }}>
-    <div class="card__date"><span class="card__day">Day {{ event.numDay + 1 }} |</span> {{ event.date }}</div>
     <h2 class="card__headline">{{ event.headline }}</h2>
     <div class="card__text">{{ event.text | md }}</div>
   </div>
@@ -54,8 +55,11 @@
     data-indicator="{{ event.marketindicator }}"
     data-start="{{ event.chartstartdate }}"
     data-end="{{ event.chartenddate }}"
+    data-chartpoint="{{ event.chartpoint }}"
+    data-xaxishighlight="{{ event.chartxaxishighlight }}"
+    data-xaxishighlighttext="{{ event.chartxaxishighlighttext }}"
     data-yaxishighlight="{{ event.chartyaxishighlight }}"
-    data-o-grid-colspan="S6 12"
+    data-o-grid-colspan="M6 12"
   >
     <div class="chart__title">{{ event.charttitle }}</div>
     <div class="chart__subtitle">{{ event.chartsubtitle }}</div>
