@@ -96,7 +96,8 @@
           text-align: center;
           width: 500%;
           margin-left: -250%;
-          margin-top: -3em;
+          margin-top: 1em;
+          color: getColor('pink-tint4');
 
           &-date {
             font-weight: 600;
@@ -118,6 +119,7 @@
           width: 500%;
           margin-left: -250%;
           margin-top: -3em;
+          color: black;
 
           &-date {
             font-weight: 600;
