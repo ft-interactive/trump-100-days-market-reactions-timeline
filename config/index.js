@@ -51,6 +51,7 @@ export default async () => {
   d.tweetText = data.text.tweetText;
   d.twitterHeadline = data.text.twitterHeadline;
   d.facebookHeadline = data.text.facebookHeadline;
+  d.socialHeadline = data.text.tweetText;
 
   return {
     ...d,
