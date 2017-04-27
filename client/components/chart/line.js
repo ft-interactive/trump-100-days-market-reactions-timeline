@@ -99,6 +99,9 @@ export default function drawLineChart(container, indicator, start, end, chartpoi
           }
           return '';
         }
+        if (indicator === 'vix-low') {
+          return d3.timeFormat('%Y')(d);
+        }
         if (totalDays && totalDays >= 3 && totalDays <= 30) {
           if (i === 0) {
             return d3.timeFormat('%b')(d);
