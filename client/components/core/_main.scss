@@ -135,12 +135,14 @@ $share-button-size: 38px;
       .chart {
         width: 50%;
         display: inline-block;
+        margin-left: -18px;
 
         &__title {
           color:#333;
           font-size:0.95em;
           font-weight: 500;
           margin-top:5px;
+          margin-left: 18px;
         }
 
         &__subtitle {

@@ -6,7 +6,7 @@ export default function drawLineChart(container, indicator, start, end, chartpoi
     top: 0,
     right: 25,
     bottom: 50,
-    left: 5,
+    left: 18,
   };
 
   const width = container.offsetWidth;
@@ -83,7 +83,10 @@ export default function drawLineChart(container, indicator, start, end, chartpoi
           if (d3.timeFormat('%H:%M')(d) === '00:00') {
             return d3.timeFormat('%b %d')(d);
           }
-          return d3.timeFormat('%H:%M')(d);
+          if (i % 2 === 0) {
+            return d3.timeFormat('%-H:%M')(d);
+          }
+          return '';
         }
         if (totalDays && totalDays >= 3 && totalDays <= 30) {
           if (i === 0) {
