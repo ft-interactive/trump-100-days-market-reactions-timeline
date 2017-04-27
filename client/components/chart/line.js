@@ -41,10 +41,21 @@ export default function drawLineChart(container, indicator, start, end, chartpoi
       totalDays = moment(end).diff(moment(start), 'days') || null;
     }
 
+    const yExtent = d3.extent(data, d => d.value);
+    let adjustment = 0;
+    if (indicator === 'peso-intraday-nafta') {
+      adjustment = 0.1;
+    }
+
     const y = d3.scaleLinear()
-      .domain(d3.extent(data, d => d.value))
+      .domain([yExtent[0] - adjustment, yExtent[1] + adjustment])
       .rangeRound([height - margin.top - margin.bottom, 0])
       .nice(5);
+
+    // invert y-axis on peso charts
+    if (indicator.indexOf('peso') > -1) {
+      y.rangeRound([0, height - margin.top - margin.bottom]);
+    }
 
     const yAxis = d3.axisRight(y)
       .ticks(5)
