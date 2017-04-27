@@ -6,9 +6,7 @@
   height: 4px;
 
   @include oGridRespondTo($until: M) {
-    height: 0;
-    overflow: hidden;
-    margin: 1em;
+    display: none;
   }
 
   #timeline-container {
@@ -133,5 +131,11 @@
       background: getColor('grey-tint2');
       opacity: 1;
     }
+  }
+}
+
+@media (max-width: 950px) {
+  #timeline-wrapper {
+    display: none;
   }
 }

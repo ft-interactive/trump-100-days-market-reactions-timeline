@@ -67,6 +67,10 @@ $share-button-size: 38px;
       padding: 0 0.75em;
     }
 
+    #intro {
+      margin-bottom: 2em;
+    }
+
     .card {
       background: #FDF8F2;
       box-shadow: 0 1px 2px 1px rgba(0,0,0,0.15);
@@ -184,4 +188,16 @@ $share-button-size: 38px;
 
 .article-head .o-share--vertical .o-share__action {
   box-sizing: content-box !important;
+}
+
+@media (max-width: 950px) {
+  .article-body {
+    .card.selected {
+      border: none;
+
+      .card__date {
+        background-color: #a7a59b;
+      }
+    }
+  }
 }
