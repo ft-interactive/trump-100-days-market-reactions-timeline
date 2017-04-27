@@ -4,61 +4,66 @@ import debounce from 'lodash.debounce';
 import drawLineChart from './components/chart/line';
 import scrollTo from './components/core/scrollTo';
 
+let windowWidth = null;
+const timelineDots = document.querySelectorAll('.timeline__circle');
+const cards = document.querySelectorAll('.card');
+
 function drawCharts() {
-  const cards = document.querySelectorAll('.card');
-  const timelineDots = document.querySelectorAll('.timeline__circle');
+  if (windowWidth === null || windowWidth !== document.documentElement.clientWidth) {
+    windowWidth = document.documentElement.clientWidth;
 
-  Array.from(cards).forEach((card) => {
-    const container = card.querySelector('.chart_container');
-    if (card.querySelector('.chart')) {
-      const indicator = card.querySelector('.chart').dataset.indicator;
-      const startdate = card.querySelector('.chart').dataset.start;
-      const enddate = card.querySelector('.chart').dataset.end;
-      const chartpoint = card.querySelector('.chart').dataset.chartpoint;
-      const xAxisHighlight = card.querySelector('.chart').dataset.xaxishighlight;
-      const xAxisHighlightText = card.querySelector('.chart').dataset.xaxishighlighttext;
-      const yAxisHighlight = card.querySelector('.chart').dataset.yaxishighlight;
+    Array.from(cards).forEach((card) => {
+      const container = card.querySelector('.chart_container');
+      if (card.querySelector('.chart')) {
+        const indicator = card.querySelector('.chart').dataset.indicator;
+        const startdate = card.querySelector('.chart').dataset.start;
+        const enddate = card.querySelector('.chart').dataset.end;
+        const chartpoint = card.querySelector('.chart').dataset.chartpoint;
+        const xAxisHighlight = card.querySelector('.chart').dataset.xaxishighlight;
+        const xAxisHighlightText = card.querySelector('.chart').dataset.xaxishighlighttext;
+        const yAxisHighlight = card.querySelector('.chart').dataset.yaxishighlight;
 
-      container.innerHTML = '';
-      drawLineChart(container, indicator, startdate, enddate, chartpoint, xAxisHighlight, xAxisHighlightText, yAxisHighlight);
-    }
+        container.innerHTML = '';
+        drawLineChart(container, indicator, startdate, enddate, chartpoint, xAxisHighlight, xAxisHighlightText, yAxisHighlight);
+      }
 
-    // waypoint down
-    new Waypoint({
-      element: card,
-      handler: (direction) => {
-        if (direction === 'down') {
-          Array.from(cards).forEach(c => c.classList.remove('selected'));
-          card.classList.add('selected');
+      // waypoint down
+      new Waypoint({
+        element: card,
+        handler: (direction) => {
+          if (direction === 'down') {
+            Array.from(cards).forEach(c => c.classList.remove('selected'));
+            card.classList.add('selected');
 
-          const cardId = card.dataset.cardId;
+            const cardId = card.dataset.cardId;
 
-          Array.from(timelineDots).forEach(timelineDot => timelineDot.classList.remove('selected'));
-          const timelineDot = document.querySelector(`.timeline__circle[data-card-id="${cardId}"]`);
-          timelineDot.classList.add('selected');
-        }
-      },
-      offset: '50%',
+            Array.from(timelineDots).forEach(timelineDot => timelineDot.classList.remove('selected'));
+            const timelineDot = document.querySelector(`.timeline__circle[data-card-id="${cardId}"]`);
+            timelineDot.classList.add('selected');
+          }
+        },
+        offset: '50%',
+      });
+
+      // waypoint up
+      new Waypoint({
+        element: card,
+        handler: (direction) => {
+          if (direction === 'up') {
+            Array.from(cards).forEach(c => c.classList.remove('selected'));
+            card.classList.add('selected');
+
+            const cardId = card.dataset.cardId;
+
+            Array.from(timelineDots).forEach(timelineDot => timelineDot.classList.remove('selected'));
+            const timelineDot = document.querySelector(`.timeline__circle[data-card-id="${cardId}"]`);
+            timelineDot.classList.add('selected');
+          }
+        },
+        offset: '45%',
+      });
     });
-
-    // waypoint up
-    new Waypoint({
-      element: card,
-      handler: (direction) => {
-        if (direction === 'up') {
-          Array.from(cards).forEach(c => c.classList.remove('selected'));
-          card.classList.add('selected');
-
-          const cardId = card.dataset.cardId;
-
-          Array.from(timelineDots).forEach(timelineDot => timelineDot.classList.remove('selected'));
-          const timelineDot = document.querySelector(`.timeline__circle[data-card-id="${cardId}"]`);
-          timelineDot.classList.add('selected');
-        }
-      },
-      offset: '45%',
-    });
-  });
+  }
 }
 
 drawCharts();
@@ -76,7 +81,6 @@ window.addEventListener('scroll', () => {
   }
 });
 
-const timelineDots = document.querySelectorAll('.timeline__circle');
 Array.from(timelineDots).forEach((timelineDot) => {
   timelineDot.addEventListener('click', () => {
     const id = timelineDot.dataset.cardId;
