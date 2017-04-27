@@ -63,18 +63,18 @@ export default () => ({ // eslint-disable-line
         optional social meta data?
   */
   // General social
-  // socialImage: '',
+  socialImage: 'https://www.ft.com/__origami/service/image/v2/images/raw/http%3A%2F%2Fig.ft.com%2Ftrump-100-days-market-reactions-timeline%2Fimages%2Ftrump-100-day-social.jpg?source=ig&width=1200',
   // socialHeadline: '',
   // socialSummary:  '',
 
   // TWITTER
-  // twitterImage: '',
+  twitterImage: 'https://www.ft.com/__origami/service/image/v2/images/raw/http%3A%2F%2Fig.ft.com%2Ftrump-100-days-market-reactions-timeline%2Fimages%2Ftrump-100-day-social.jpg?source=ig&width=1200',
   // twitterCreator: '@individual's_account',
   // tweetText:  '',
   // twitterHeadline:  '',
 
   // FACEBOOK
-  // facebookImage: '',
+  facebookImage: 'https://www.ft.com/__origami/service/image/v2/images/raw/http%3A%2F%2Fig.ft.com%2Ftrump-100-days-market-reactions-timeline%2Fimages%2Ftrump-100-day-social.jpg?source=ig&width=1200',
   // facebookHeadline: '',
 
   tracking: {
