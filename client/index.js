@@ -3,6 +3,7 @@
 import debounce from 'lodash.debounce';
 import drawLineChart from './components/chart/line';
 import scrollTo from './components/core/scrollTo';
+import gaSendEvent from './components/core/ga-analytics';
 
 let windowWidth = null;
 const timelineDots = document.querySelectorAll('.timeline__circle');
@@ -89,5 +90,14 @@ Array.from(timelineDots).forEach((timelineDot) => {
     // yPos is position of card within timeline-card-container + position of the timeline-card-container. then subtract half height of screen to capture waypoint (and a tiny bit more to capture waypoint)
     const yPos = document.querySelector(`.card[data-card-id="${id}"]`).offsetTop + (timelineCardContainerYPos - ((viewportHeight / 2) - 50));
     scrollTo(yPos, 500);
+
+    const textDate = timelineDot.querySelector('.timeline__circle__text-date').innerText;
+    gaSendEvent('timeline', 'click', textDate);
   });
 });
+
+let timelineVisible = false;
+if (document.querySelector('#timeline-wrapper').offsetHeight !== 0) {
+  timelineVisible = true;
+}
+gaSendEvent('timeline', 'visible', timelineVisible);
