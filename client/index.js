@@ -63,9 +63,7 @@ function drawCharts() {
 
 drawCharts();
 
-window.addEventListener('resize', () => {
-  debounce(drawCharts(), 100);
-});
+window.addEventListener('resize', debounce(drawCharts, 100));
 
 window.addEventListener('scroll', () => {
   const containerHeight = document.querySelector('#timeline-wrapper').getBoundingClientRect().bottom - document.querySelector('#timeline-wrapper').getBoundingClientRect().top;
