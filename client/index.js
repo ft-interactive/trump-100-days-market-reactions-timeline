@@ -8,6 +8,36 @@ import gaSendEvent from './components/core/ga-analytics';
 let windowWidth = null;
 const timelineDots = document.querySelectorAll('.timeline__circle');
 const cards = document.querySelectorAll('.card');
+let timeCardMarker = null;
+let timeOnCard = 0;
+
+function selectCard(card) {
+  if (timeCardMarker === null) {
+    timeCardMarker = Date.now();
+  } else {
+    timeOnCard = ((Date.now() - timeCardMarker) / 1000).toFixed(2);
+    timeCardMarker = Date.now();
+  }
+
+  // old selected card
+  const oldSelectedCard = document.querySelector('.card.selected');
+  if (oldSelectedCard) {
+    const oldSelectedCardId = oldSelectedCard.dataset.cardId;
+    const oldSelectedCardDate = oldSelectedCard.querySelector('.card__date__text').innerText;
+    if (timeOnCard > 1) {
+      gaSendEvent('timeline-timeOnCard', `${oldSelectedCardDate}-${oldSelectedCardId}`, timeOnCard);
+    }
+  }
+
+  Array.from(cards).forEach(c => c.classList.remove('selected'));
+  card.classList.add('selected');
+
+  const cardId = card.dataset.cardId;
+
+  Array.from(timelineDots).forEach(timelineDot => timelineDot.classList.remove('selected'));
+  const timelineDot = document.querySelector(`.timeline__circle[data-card-id="${cardId}"]`);
+  timelineDot.classList.add('selected');
+}
 
 function drawCharts() {
   if (windowWidth === null || windowWidth !== document.documentElement.clientWidth) {
@@ -33,14 +63,7 @@ function drawCharts() {
         element: card,
         handler: (direction) => {
           if (direction === 'down') {
-            Array.from(cards).forEach(c => c.classList.remove('selected'));
-            card.classList.add('selected');
-
-            const cardId = card.dataset.cardId;
-
-            Array.from(timelineDots).forEach(timelineDot => timelineDot.classList.remove('selected'));
-            const timelineDot = document.querySelector(`.timeline__circle[data-card-id="${cardId}"]`);
-            timelineDot.classList.add('selected');
+            selectCard(card);
           }
         },
         offset: '50%',
@@ -51,14 +74,7 @@ function drawCharts() {
         element: card,
         handler: (direction) => {
           if (direction === 'up') {
-            Array.from(cards).forEach(c => c.classList.remove('selected'));
-            card.classList.add('selected');
-
-            const cardId = card.dataset.cardId;
-
-            Array.from(timelineDots).forEach(timelineDot => timelineDot.classList.remove('selected'));
-            const timelineDot = document.querySelector(`.timeline__circle[data-card-id="${cardId}"]`);
-            timelineDot.classList.add('selected');
+            selectCard(card);
           }
         },
         offset: '45%',
@@ -79,6 +95,22 @@ window.addEventListener('scroll', () => {
     document.querySelector('#timeline-container').classList.add('tacked');
   } else {
     document.querySelector('#timeline-container').classList.remove('tacked');
+  }
+
+  // to get time on card for last card on page
+  if (window.scrollY > document.querySelector('#timeline-wrapper').offsetTop + document.querySelector('#timeline-card-container').offsetHeight) {
+    if (timeCardMarker !== null) {
+      timeOnCard = ((Date.now() - timeCardMarker) / 1000).toFixed(2);
+      timeCardMarker = null;
+      const oldSelectedCard = cards[cards.length - 1];
+      const oldSelectedCardId = oldSelectedCard.dataset.cardId;
+      const oldSelectedCardDate = oldSelectedCard.querySelector('.card__date__text').innerText;
+
+      Array.from(cards).forEach(c => c.classList.remove('selected'));
+      if (timeOnCard > 1) {
+        gaSendEvent('timeline-timeOnCard-bottom', `${oldSelectedCardDate}-${oldSelectedCardId}`, timeOnCard);
+      }
+    }
   }
 });
 
