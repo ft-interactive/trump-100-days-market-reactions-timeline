@@ -43,22 +43,22 @@
     width: 100px;
     display: inline-block;
     position: absolute;
-    margin-top: -1.6em;
+    margin-top: -0.5em;
     color: getColor('pink-tint5');
 
     &#timeline__ends__start {
-      left: -40px;
+      left: -35px;
       text-align: right;
     }
 
     &#timeline__ends__end {
-      right: -40px;
+      right: -48px;
     }
 
     .timeline__circle__text {
 
       &-date {
-        font-weight: 600;
+        font-weight: 500;
       }
     }
   }
