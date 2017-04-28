@@ -53,8 +53,6 @@ export default async () => {
   d.facebookHeadline = data.text.facebookHeadline;
   d.socialHeadline = data.text.tweetText;
 
-  console.log(data);
-
   return {
     ...d,
     flags,

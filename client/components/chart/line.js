@@ -53,7 +53,7 @@ export default function drawLineChart(container, indicator, start, end, chartpoi
       .nice(5);
 
     // invert y-axis on peso charts
-    if (indicator.indexOf('peso') > -1) {
+    if (indicator.indexOf('peso') > -1 || indicator.indexOf('canada') > -1) {
       y.rangeRound([0, height - margin.top - margin.bottom]);
     }
 
